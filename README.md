@@ -10,19 +10,36 @@ Repro steps:
 1. visit the provided URL in a browser, enter text in textbox, press enter
 1. check logs in Vercel, observe:
 
+Bug when you hit `/api/route` in a browser:
 ```
-- info Loaded env from /var/task/.env
-Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/task/node_modules/openai/_shims/agent-node.mjs' imported from /var/task/node_modules/openai/core.mjs
-    at new NodeError (node:internal/errors:405:5)
-    at finalizeResolution (node:internal/modules/esm/resolve:329:11)
-    at moduleResolve (node:internal/modules/esm/resolve:992:10)
-    at moduleResolveWithNodePath (node:internal/modules/esm/resolve:936:12)
-    at defaultResolve (node:internal/modules/esm/resolve:1178:79)
-    at nextResolve (node:internal/modules/esm/loader:163:28)
-    at ESMLoader.resolve (node:internal/modules/esm/loader:835:30)
-    at ESMLoader.getModuleJob (node:internal/modules/esm/loader:424:18)
-    at ModuleWrap.<anonymous> (node:internal/modules/esm/module_job:77:40)
-    at link (node:internal/modules/esm/module_job:76:36) {
-  code: 'ERR_MODULE_NOT_FOUND'
+Error: Cannot find module '/var/task/node_modules/openai/_shims/agent-node.js'
+    at createEsmNotFoundErr (node:internal/modules/cjs/loader:1098:15)
+    at finalizeEsmResolution (node:internal/modules/cjs/loader:1091:15)
+    at trySelf (node:internal/modules/cjs/loader:543:12)
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1054:24)
+    at /var/task/node_modules/next/dist/server/require-hook.js:110:36
+    at Module._load (node:internal/modules/cjs/loader:922:27)
+    at Module.require (node:internal/modules/cjs/loader:1143:19)
+    at Hook._require.Module.require (/var/task/___vc/__launcher.js:2147:38)
+    at require (node:internal/modules/cjs/helpers:121:18)
+    at Object.<anonymous> (/var/task/node_modules/openai/core.js:63:17) {
+  code: 'MODULE_NOT_FOUND',
+  path: '/var/task/node_modules/openai/package.json'
 }
+Error: Cannot find module '/var/task/node_modules/openai/_shims/agent-node.js'
+    at createEsmNotFoundErr (node:internal/modules/cjs/loader:1098:15)
+    at finalizeEsmResolution (node:internal/modules/cjs/loader:1091:15)
+    at trySelf (node:internal/modules/cjs/loader:543:12)
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1054:24)
+    at /var/task/node_modules/next/dist/server/require-hook.js:110:36
+    at Module._load (node:internal/modules/cjs/loader:922:27)
+    at Module.require (node:internal/modules/cjs/loader:1143:19)
+    at Hook._require.Module.require (/var/task/___vc/__launcher.js:2147:38)
+    at require (node:internal/modules/cjs/helpers:121:18)
+    at Object.<anonymous> (/var/task/node_modules/openai/core.js:63:17) {
+  code: 'MODULE_NOT_FOUND',
+  path: '/var/task/node_modules/openai/package.json'
+}
+RequestId: 75c4da57-a2ca-4e49-be57-77069f06fea9 Error: Runtime exited with error: exit status 1
+Runtime.ExitError
 ```
