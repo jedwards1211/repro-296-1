@@ -1,10 +1,18 @@
-import { makeCompletion } from "@/openai";
+import OpenAI from "openai";
+import { NextResponse } from "next/server";
 
-// the bug only occurs without the edge runtime:
 export const runtime = "edge";
 
-export async function POST(req: Request) {
-  const { prompt } = await req.json();
-
-  return await makeCompletion(prompt);
+export async function GET() {
+  const client = new OpenAI();
+  const result = await client.chat.completions.create({
+    messages: [
+      {
+        role: "user",
+        content: "hi",
+      },
+    ],
+    model: "gpt-3.5-turbo",
+  });
+  return NextResponse.json({ message: JSON.stringify(result) });
 }
