@@ -8,9 +8,8 @@ Repro steps:
 1. `yarn deploy` (accept all default prompts)
 1. add the `OPENAI_API_KEY` env var to your vercel project's settings
 1. visit the provided URL in a browser, enter text in textbox, press enter
-1. check logs in Vercel, observe:
-
-Bug when you hit `/api/route` in a browser:
+1. check logs in Vercel, observe… no error…
+1. but when you hit `/api/route` in a browser:
 ```
 Error: Cannot find module '/var/task/node_modules/openai/_shims/agent-node.js'
     at createEsmNotFoundErr (node:internal/modules/cjs/loader:1098:15)
