@@ -4,12 +4,10 @@ import { OpenAIStream, StreamingTextResponse } from "ai";
 // the bug only occurs without the edge runtime:
 export const runtime = "edge";
 
-export async function POST(req: Request) {
+export async function makeCompletion(prompt: any) {
   const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
   });
-
-  const { prompt } = await req.json();
 
   // Ask OpenAI for a streaming completion given the prompt
   const response = await openai.completions.create({
