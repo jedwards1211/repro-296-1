@@ -6,7 +6,6 @@ type ResponseData = {
   message: string;
 };
 
-// The bug only appears for me when edge is not enabled.
 export const runtime = "edge";
 
 export default async function handler(req: NextApiRequest) {
