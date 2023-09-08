@@ -1,8 +1,8 @@
 import OpenAI from "openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 
-// Set the runtime to edge for best performance
-export const runtime = "edge";
+// the bug only occurs without the edge runtime:
+// export const runtime = "edge";
 
 export async function POST(req: Request) {
   const openai = new OpenAI({

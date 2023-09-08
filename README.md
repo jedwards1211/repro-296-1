@@ -1,34 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Bug repro
 
-## Getting Started
+For https://github.com/openai/openai-node/issues/296 and https://github.com/openai/openai-node/issues/297
 
-First, run the development server:
+Repro steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+1. `yarn`
+1. `yarn deploy` (accept all default prompts)
+1. add the `OPENAI_API_KEY` env var to your vercel project's settings
+1. visit the provided URL in a browser, enter text in textbox, press enter
+1. check logs in Vercel, observe:
+
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- info Loaded env from /var/task/.env
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/task/node_modules/openai/_shims/agent-node.mjs' imported from /var/task/node_modules/openai/core.mjs
+    at new NodeError (node:internal/errors:405:5)
+    at finalizeResolution (node:internal/modules/esm/resolve:329:11)
+    at moduleResolve (node:internal/modules/esm/resolve:992:10)
+    at moduleResolveWithNodePath (node:internal/modules/esm/resolve:936:12)
+    at defaultResolve (node:internal/modules/esm/resolve:1178:79)
+    at nextResolve (node:internal/modules/esm/loader:163:28)
+    at ESMLoader.resolve (node:internal/modules/esm/loader:835:30)
+    at ESMLoader.getModuleJob (node:internal/modules/esm/loader:424:18)
+    at ModuleWrap.<anonymous> (node:internal/modules/esm/module_job:77:40)
+    at link (node:internal/modules/esm/module_job:76:36) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+```
